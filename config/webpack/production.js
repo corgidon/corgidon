@@ -63,6 +63,7 @@ module.exports = merge(sharedConfig, {
           '**/*_polyfills-*.js', // the user may not need polyfills
           '**/*.woff2', // the user may have system-fonts enabled
           // images/audio can be cached on-demand
+          '**/*.gif',
           '**/*.png',
           '**/*.jpg',
           '**/*.jpeg',
