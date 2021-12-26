@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '.well-known/keybase-proof-config', to: 'well_known/keybase_proof_config#show'
 
   get '/nodeinfo/2.0', to: 'well_known/nodeinfo#show', as: :nodeinfo_schema, defaults: { format: 'json' }
-  get '/nodeinfo/2.1', to: 'well_known/nodeinfo#show', as: :nodeinfo_schema, defaults: { format: 'json' }
+  get '/nodeinfo/2.1', to: 'well_known/nodeinfo#show', as: :nodeinfo21_schema, defaults: { format: 'json' }
 
   get 'manifest', to: 'manifests#show', defaults: { format: 'json' }
   get 'intent', to: 'intents#show'
