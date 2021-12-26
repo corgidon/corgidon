@@ -188,12 +188,6 @@ export default class StatusContent extends React.PureComponent {
       </button>
     );
 
-    const showThreadButton = (
-      <button className='status__content__read-more-button' onClick={this.props.onClick}>
-        <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
-      </button>
-    );
-
     const readMoreButton = (
       <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
         <FormattedMessage id='status.read_more' defaultMessage='Read more' /><Icon id='angle-right' fixedWidth />
