@@ -17,6 +17,8 @@ describe WellKnown::NodeInfoController, type: :controller do
       expect(json[:links]).to be_an Array
       expect(json[:links][0][:rel]).to eq 'http://nodeinfo.diaspora.software/ns/schema/2.0'
       expect(json[:links][0][:href]).to include 'nodeinfo/2.0'
+      expect(json[:links][1][:rel]).to eq 'http://nodeinfo.diaspora.software/ns/schema/2.1'
+      expect(json[:links][1][:href]).to include 'nodeinfo/2.1'
     end
   end
 
@@ -25,9 +27,12 @@ describe WellKnown::NodeInfoController, type: :controller do
       get :show, params: { version_number: 2 }
 
       json_response = JSON.parse(response.body)
+      json = body_as_json
 
       expect(response).to have_http_status(200)
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+      expect(response.media_type).to eq 'application/json'
+
       expect(json_response.keys.include?('version')).to be true
       expect(json_response.keys.include?('usage')).to be true
       expect(json_response.keys.include?('software')).to be true
@@ -36,10 +41,6 @@ describe WellKnown::NodeInfoController, type: :controller do
       expect(json_response.keys.include?('openRegistrations')).to be true
       expect(json_response.keys.include?('usage')).to be true
       expect(json_response.keys.include?('metadata')).to be true
-      expect(response.media_type).to eq 'application/json'
-
-      json = body_as_json
-
       expect(json[:version]).to eq '2.0'
       expect(json[:usage]).to be_a Hash
       expect(json[:software]).to be_a Hash
