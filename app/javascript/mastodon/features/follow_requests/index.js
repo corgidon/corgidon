@@ -19,6 +19,7 @@ const messages = defineMessages({
 
 const mapStateToProps = state => ({
   accountIds: state.getIn(['user_lists', 'follow_requests', 'items']),
+  isLoading: state.getIn(['user_lists', 'follow_requests', 'isLoading'], true),
   hasMore: !!state.getIn(['user_lists', 'follow_requests', 'next']),
   locked: !!state.getIn(['accounts', me, 'locked']),
   domain: state.getIn(['meta', 'domain']),
@@ -31,8 +32,8 @@ class FollowRequests extends ImmutablePureComponent {
   static propTypes = {
     params: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    shouldUpdateScroll: PropTypes.func,
     hasMore: PropTypes.bool,
+    isLoading: PropTypes.bool,
     accountIds: ImmutablePropTypes.list,
     locked: PropTypes.bool,
     domain: PropTypes.string,
@@ -49,7 +50,7 @@ class FollowRequests extends ImmutablePureComponent {
   }, 300, { leading: true });
 
   render () {
-    const { intl, shouldUpdateScroll, accountIds, hasMore, multiColumn, locked, domain } = this.props;
+    const { intl, accountIds, hasMore, multiColumn, locked, domain, isLoading } = this.props;
 
     if (!accountIds) {
       return (
@@ -77,7 +78,7 @@ class FollowRequests extends ImmutablePureComponent {
           scrollKey='follow_requests'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
-          shouldUpdateScroll={shouldUpdateScroll}
+          isLoading={isLoading}
           emptyMessage={emptyMessage}
           bindToDocument={!multiColumn}
           prepend={unlockedPrependMessage}
