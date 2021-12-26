@@ -16,8 +16,6 @@ Corgidon is a fork of [Mastodon](https://github.com/tootsuite/mastodon/blob/mast
 - Media takes the full width of the timeline in which it is contained
 - Larger Emoji
 - Default pink theme replaces default mastodon theme (see themes section)
-- Public moderation log availible to logged in users (see below)
-![public moderation log](https://shiba.banana.dog/media_attachments/files/003/723/324/original/f3f160f3dc70ae2a.png)
 
 # Themes
 
@@ -64,6 +62,7 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 - Recaptcha option for login (removed since upstream mastodon introduced ability to review sign ups)
 - Collopsable toots (replaced my implimentation with the "Read more>> feature from upstream")
 - Option to show direct messages in your home timeline
+- Public moderation log availible to logged in users (less useful now that about/more lists blocks)
 
 # Docker Compose Install
 
