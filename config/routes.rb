@@ -22,12 +22,14 @@ Rails.application.routes.draw do
   end
 
   get '.well-known/host-meta', to: 'well_known/host_meta#show', as: :host_meta, defaults: { format: 'xml' }
-  get '.well-known/nodeinfo', to: 'well_known/nodeinfo#index', as: :node_info,    defaults: { format: 'json' }
+  get '.well-known/nodeinfo', to: 'well_known/nodeinfo#index', as: :node_info, defaults: { format: 'json' }
   get '.well-known/webfinger', to: 'well_known/webfinger#show', as: :webfinger
   get '.well-known/change-password', to: redirect('/auth/edit')
   get '.well-known/keybase-proof-config', to: 'well_known/keybase_proof_config#show'
 
-  get 'nodeinfo/:version_number', to: 'well_known/nodeinfo#show',  as: :node_info_schema, defaults: { format: 'json' }
+  get '/nodeinfo/2.0', to: 'well_known/nodeinfo#show', as: :nodeinfo_schema, defaults: { format: 'json' }
+  get '/nodeinfo/2.1', to: 'well_known/nodeinfo#show', as: :nodeinfo_schema, defaults: { format: 'json' }
+
   get 'manifest', to: 'manifests#show', defaults: { format: 'json' }
   get 'intent', to: 'intents#show'
   get 'custom.css', to: 'custom_css#show', as: :custom_css
