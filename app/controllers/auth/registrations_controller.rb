@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Auth::RegistrationsController < Devise::RegistrationsController
+  include RegistrationSpamConcern
+
   layout :determine_layout
 
   before_action :set_invite, only: [:new, :create]
@@ -11,6 +13,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_body_classes, only: [:new, :create, :edit, :update]
   before_action :require_not_suspended!, only: [:update]
   before_action :set_cache_headers, only: [:edit, :update]
+  before_action :set_registration_form_time, only: :new
 
   skip_before_action :require_functional!, only: [:edit, :update]
 
@@ -24,7 +27,9 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def update
     super do |resource|
-      resource.clear_other_sessions(current_session.session_id) if resource.saved_change_to_encrypted_password?
+      if resource.saved_change_to_encrypted_password?
+        resource.clear_other_sessions(current_session.session_id)
+      end
     end
   end
 
@@ -39,16 +44,17 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   def build_resource(hash = nil)
     super(hash)
 
-    resource.locale             = I18n.locale
-    resource.invite_code        = params[:invite_code] if resource.invite_code.blank?
-    resource.current_sign_in_ip = request.remote_ip
+    resource.locale                 = I18n.locale
+    resource.invite_code            = params[:invite_code] if resource.invite_code.blank?
+    resource.registration_form_time = session[:registration_form_time]
+    resource.sign_up_ip             = request.remote_ip
 
     resource.build_account if resource.account.nil?
   end
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit({ account_attributes: [:username], invite_request_attributes: [:text] }, :email, :password, :password_confirmation, :invite_code, :agreement)
+      u.permit({ account_attributes: [:username], invite_request_attributes: [:text] }, :email, :password, :password_confirmation, :invite_code, :agreement, :website, :confirm_password)
     end
   end
 

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class StatusLengthValidator < ActiveModel::Validator
+  URL_PLACEHOLDER_CHARS = 23
+  URL_PLACEHOLDER = "\1#{'x' * URL_PLACEHOLDER_CHARS}"
+
   def validate(status)
     return unless status.local? && !status.reblog?
 
     @status = status
-    status.errors.add(:text, I18n.t('statuses.over_character_limit', max: Setting.max_toot_chars)) if too_long?
+    status.errors.add(:text, I18n.t('statuses.over_character_limit', max: Setting.max_toot_chars.to_i)) if too_long?
   end
 
   private
@@ -26,7 +29,7 @@ class StatusLengthValidator < ActiveModel::Validator
     return '' if @status.text.nil?
 
     @status.text.dup.tap do |new_text|
-      new_text.gsub!(FetchLinkCardService::URL_PATTERN, 'x' * 23)
+      new_text.gsub!(FetchLinkCardService::URL_PATTERN, URL_PLACEHOLDER)
       new_text.gsub!(Account::MENTION_RE, '@\2')
     end
   end

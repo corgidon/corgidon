@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(openModal('CONFIRM', {
       message: intl.formatMessage(messages.logoutMessage),
       confirm: intl.formatMessage(messages.logoutConfirm),
+      closeWhenConfirm: false,
       onConfirm: () => logOut(),
     }));
   },
@@ -51,8 +52,7 @@ class LinkFooter extends React.PureComponent {
           {withHotkeys && <li><Link to='/keyboard-shortcuts'><FormattedMessage id='navigation_bar.keyboard_shortcuts' defaultMessage='Hotkeys' /></Link> · </li>}
           <li><a href='/auth/edit'><FormattedMessage id='getting_started.security' defaultMessage='Security' /></a> · </li>
           <li><a href='/about/more' target='_blank'><FormattedMessage id='navigation_bar.info' defaultMessage='About this server' /></a> · </li>
-          <li><a href='/about/moderation' target='_blank'><FormattedMessage id='navigation_bar.mod_info' defaultMessage='Moderation Log' /></a> · </li>
-                <li><a href='https://joinmastodon.org/apps' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
+          <li><a href='https://joinmastodon.org/apps' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
           <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
           <li><a href='/settings/applications' target='_blank'><FormattedMessage id='getting_started.developers' defaultMessage='Developers' /></a> · </li>
           <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a> · </li>

@@ -2,7 +2,7 @@
 
 const path = require('path');
 const { URL } = require('url');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const OfflinePlugin = require('offline-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -63,6 +63,7 @@ module.exports = merge(sharedConfig, {
           '**/*_polyfills-*.js', // the user may not need polyfills
           '**/*.woff2', // the user may have system-fonts enabled
           // images/audio can be cached on-demand
+          '**/*.gif',
           '**/*.png',
           '**/*.jpg',
           '**/*.jpeg',
@@ -87,7 +88,7 @@ module.exports = merge(sharedConfig, {
         '**/*.woff',
       ],
       ServiceWorker: {
-        entry: `imports-loader?ATTACHMENT_HOST=>${encodeURIComponent(JSON.stringify(attachmentHost))}!${encodeURI(path.join(__dirname, '../../app/javascript/mastodon/service_worker/entry.js'))}`,
+        entry: `imports-loader?additionalCode=${encodeURIComponent(`var ATTACHMENT_HOST=${JSON.stringify(attachmentHost)};`)}!${encodeURI(path.join(__dirname, '../../app/javascript/mastodon/service_worker/entry.js'))}`,
         cacheName: 'mastodon',
         output: '../assets/sw.js',
         publicPath: '/sw.js',

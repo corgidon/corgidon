@@ -6,7 +6,7 @@ class NodeInfo::Serializer < ActiveModel::Serializer
   attributes :version, :software, :protocols, :usage, :open_registrations, :metadata, :services
 
   def version
-    self.instance_options[:version]
+    '2.1'
   end
 
   def software
@@ -14,7 +14,7 @@ class NodeInfo::Serializer < ActiveModel::Serializer
       name: 'corgidon',
       version: Mastodon::Version.to_s
     }
-    sw[:repository] = Mastodon::Version.source_base_url if version == '2.1'
+    sw[:repository] = Mastodon::Version.source_base_url
     sw
   end
 
