@@ -41,7 +41,7 @@ describe WellKnown::NodeInfoController, type: :controller do
       expect(json_response.keys.include?('openRegistrations')).to be true
       expect(json_response.keys.include?('usage')).to be true
       expect(json_response.keys.include?('metadata')).to be true
-      expect(json[:version]).to eq '2.0'
+      expect(json[:version]).to eq '2.1'
       expect(json[:usage]).to be_a Hash
       expect(json[:software]).to be_a Hash
       expect(json[:protocols]).to be_an Array
