@@ -9,11 +9,11 @@ class NodeInfo::DiscoverySerializer < ActiveModel::Serializer
     [
       {
         rel: 'http://nodeinfo.diaspora.software/ns/schema/2.0',
-        href: node_info_schema_url('2.0'),
+        href: nodeinfo_schema_url
       },
       {
         rel: 'http://nodeinfo.diaspora.software/ns/schema/2.1',
-        href: node_info_schema_url('2.1'),
+        href: nodeinfo21_schema_url,
       },
     ]
   end
