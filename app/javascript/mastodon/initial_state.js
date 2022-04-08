@@ -15,6 +15,7 @@ export const searchEnabled = getMeta('search_enabled');
 export const maxBioChars = getMeta('max_bio_chars');
 export const maxChars = getMeta('max_toot_chars');
 export const invitesEnabled = getMeta('invites_enabled');
+export const limitedFederationMode = getMeta('limited_federation_mode');
 export const repository = getMeta('repository');
 export const source_url = getMeta('source_url');
 export const version = getMeta('version');

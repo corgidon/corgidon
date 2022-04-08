@@ -9,9 +9,9 @@ module ApplicationHelper
 
   RTL_LOCALES = %i(
     ar
+    ckb
     fa
     he
-    ku
   ).freeze
 
   def friendly_number_to_human(number, **options)
@@ -54,7 +54,7 @@ module ApplicationHelper
   end
 
   def available_sign_up_path
-    if closed_registrations?
+    if closed_registrations? || omniauth_only?
       return ENV['CUSTOM_CLOSED_JOIN_URL'] if ENV['CUSTOM_CLOSED_JOIN_URL'].present?
 
       'https://joinmastodon.org/#getting-started'
@@ -62,13 +62,39 @@ module ApplicationHelper
       new_user_registration_path
     end
   end
-
+  
   def max_bio_chars
     Setting.max_bio_chars
   end
 
   def max_toot_chars
     Setting.max_toot_chars
+  end
+
+  def omniauth_only?
+    ENV['OMNIAUTH_ONLY'] == 'true'
+  end
+
+  def link_to_login(name = nil, html_options = nil, &block)
+    target = new_user_session_path
+
+    html_options = name if block_given?
+
+    if omniauth_only? && Devise.mappings[:user].omniauthable? && User.omniauth_providers.size == 1
+      target = omniauth_authorize_path(:user, User.omniauth_providers[0])
+      html_options ||= {}
+      html_options[:method] = :post
+    end
+
+    if block_given?
+      link_to(target, html_options, &block)
+    else
+      link_to(name, target, html_options)
+    end
+  end
+
+  def provider_sign_in_link(provider)
+    link_to I18n.t("auth.providers.#{provider}", default: provider.to_s.chomp('_oauth2').capitalize), omniauth_authorize_path(:user, provider), class: "button button-#{provider}", method: :post
   end
 
   def open_deletion?
@@ -151,6 +177,10 @@ module ApplicationHelper
     end
   end
 
+  def react_admin_component(name, props = {})
+    content_tag(:div, nil, data: { 'admin-component': name.to_s.camelcase, props: Oj.dump({ locale: I18n.locale }.merge(props)) })
+  end
+
   def body_classes
     output = (@body_classes || '').split(' ')
     output << "theme-#{current_theme.parameterize}"
@@ -207,5 +237,24 @@ module ApplicationHelper
     # rubocop:disable Rails/OutputSafety
     content_tag(:script, json_escape(json).html_safe, id: 'initial-state', type: 'application/json')
     # rubocop:enable Rails/OutputSafety
+  end
+
+  def grouped_scopes(scopes)
+    scope_parser      = ScopeParser.new
+    scope_transformer = ScopeTransformer.new
+
+    scopes.each_with_object({}) do |str, h|
+      scope = scope_transformer.apply(scope_parser.parse(str))
+
+      if h[scope.key]
+        h[scope.key].merge!(scope)
+      else
+        h[scope.key] = scope
+      end
+    end.values
+  end
+
+  def prerender_custom_emojis(html, custom_emojis)
+    EmojiFormatter.new(html, custom_emojis, animate: prefers_autoplay?).to_s
   end
 end

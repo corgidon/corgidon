@@ -1,11 +1,10 @@
 # frozen_string_literal: true
-require 'sidekiq/api'
 
 module Admin
   class DashboardController < BaseController
     def index
       @system_checks         = Admin::SystemCheck.perform
-      @users_count           = User.count
+      @time_period           = (29.days.ago.to_date...Time.now.utc.to_date)
       @pending_users_count   = User.pending.count
       @registrations_week    = Redis.current.get("activity:accounts:local:#{current_week}") || 0
       @logins_week           = Redis.current.pfcount("activity:logins:#{current_week}")
@@ -32,20 +31,18 @@ module Admin
       @pam_enabled           = ENV['PAM_ENABLED'] == 'true'
       @hidden_service        = ENV['ALLOW_ACCESS_TO_HIDDEN_SERVICE'] == 'true'
       @trending_hashtags     = TrendingTags.get(10, filtered: false)
-      @pending_tags_count    = Tag.pending_review.count
       @authorized_fetch      = authorized_fetch_mode?
       @whitelist_enabled     = whitelist_mode?
       @profile_directory     = Setting.profile_directory
       @timeline_preview      = Setting.timeline_preview
       @nodeinfo_show_blocks  = Setting.nodeinfo_show_blocks
       @trends_enabled        = Setting.trends
+      @pending_reports_count = Report.unresolved.count
+      @pending_tags_count    = Tag.pending_review.count
+      @pending_appeals_count = Appeal.pending.count
     end
 
     private
-
-    def current_week
-      @current_week ||= Time.now.utc.to_date.cweek
-    end
 
     def redis_info
       @redis_info ||= begin
