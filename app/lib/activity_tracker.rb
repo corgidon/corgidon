@@ -28,13 +28,13 @@ class ActivityTracker
       key = key_at(date.to_time(:utc))
 
       value = begin
-        case @type
-        when :basic
-          redis.get(key).to_i
-        when :unique
-          redis.pfcount(key)
-        end
-      end
+                case @type
+                when :basic
+                  redis.get(key).to_i
+                when :unique
+                  redis.pfcount(key)
+                end
+              end
 
       [date, value]
     end
@@ -58,10 +58,6 @@ class ActivityTracker
 
     def record(prefix, value)
       new(prefix, :unique).add(value)
-    end
-
-    def current_month
-      Time.zone.today.month
     end
   end
 
