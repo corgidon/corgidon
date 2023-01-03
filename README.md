@@ -87,13 +87,13 @@ pwd corgidon
 - pull down .env and update *DB_PASS* , *SMTP* settings, *LOCAL_DOMAIN* and any other things you want to change and save the file.
 
 ```
-curl https://raw.githubusercontent.com/msdos621/corgidon/main/.env.production.sample  > .env.production
+curl https://raw.githubusercontent.com/corgidon/corgidon/main/.env.production.sample  > .env.production
 ```
 
 - pull down the example docker-compose file
 
 ```
-curl https://raw.githubusercontent.com/msdos621/corgidon/main/docker-compose.yml  > docker-compose.yml
+curl https://raw.githubusercontent.com/corgidon/corgidon/main/docker-compose.yml  > docker-compose.yml
 ```
 
 - pull the latest version of the docker containers
@@ -143,7 +143,7 @@ chown -R 991:991 public
 
 ```
 cd /etc/nginx/sites-availible 
-curl https://raw.githubusercontent.com/msdos621/corgidon/main/dist/nginx.conf  > /etc/nginx/sites-available/example.com
+curl https://raw.githubusercontent.com/corgidon/corgidon/main/dist/nginx.conf  > /etc/nginx/sites-available/example.com
 ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com
 nginx -t
 service nginx reload
