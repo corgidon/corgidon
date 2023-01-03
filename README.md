@@ -23,39 +23,39 @@ CorgiDon comes bundled with some themes from other instances as well as some uni
 
 ### Jigglypuff (default theme)
 
-![jigglypuff](https://shiba.banana.dog/media_attachments/files/002/665/857/original/2f08a05dda848192.png)
+![jigglypuff](https://github.com/corgidon/corgidon/blob/main/.preview/jigglypuff.png?raw=true)
 
 ### Cybrespace
 
-![cybrespace](https://shiba.banana.dog/media_attachments/files/002/665/858/original/e514f218df0e765f.png)
+![cybrespace](https://github.com/corgidon/corgidon/blob/main/.preview/cybrespace.png?raw=true)
 
 ### Cybrespace Light
 
-![cybrespace light](https://shiba.banana.dog/media_attachments/files/002/665/859/original/16f4064377a62e86.png)
+![cybrespace light](https://github.com/corgidon/corgidon/blob/main/.preview/cybrespacelight.png?raw=true)
 
 ### Cybrespace Windows 95
 
-![cybrespace 95](https://shiba.banana.dog/media_attachments/files/002/665/856/original/729e4612dae7fade.png)
+![cybrespace 95](https://github.com/corgidon/corgidon/blob/main/.preview/win95.png?raw=true)
 
 ### meemu.org
 
-![meemu-org](https://shiba.banana.dog/media_attachments/files/004/332/066/original/c0a5835d2c028b52.png)
+![meemu-org](https://github.com/corgidon/corgidon/blob/main/.preview/meemu.png?raw=true)
 
 ### GeoDude
 
-![geodude](https://shiba.banana.dog/media_attachments/files/002/665/843/original/287d96895ea60b33.png)
+![geodude](https://github.com/corgidon/corgidon/blob/main/.preview/geodude.png?raw=true)
 
 ### Sleeping Town
 
-![royal tennebaumbs](https://shiba.banana.dog/media_attachments/files/002/665/848/original/d0cab2a711de20a9.png)
+![sleeping town](https://github.com/corgidon/corgidon/blob/main/.preview/sleepingtown.png?raw=true)
 
 ### Royal Tennebaumbs
 
-![royal tennebaumbs](https://shiba.banana.dog/media_attachments/files/002/665/845/original/82f3fab0f150606a.png)
+![royal tennebaumbs](https://github.com/corgidon/corgidon/blob/main/.preview/royal.png?raw=true)
 
 ### Witches Town
 
-![witches town](https://shiba.banana.dog/media_attachments/files/002/665/844/original/bfffb692af586977.png)
+![witches town](https://github.com/corgidon/corgidon/blob/main/.preview/witches.png?raw=true)
 
 # Things I tried and later removed
 
